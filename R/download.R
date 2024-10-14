@@ -72,10 +72,7 @@ download_ERA <- function(Variable = NULL, PrecipFix = FALSE, Type = "reanalysis"
 
   ### SETTING UP API ----
   # Setting the API key for later retrieval by wf_request()
-  API_Service = "cds"
-  wf_set_key(user = as.character(API_User),
-             key = as.character(API_Key),
-             service = API_Service)
+  wf_set_key(key = as.character(API_Key))
 
   ### SETTING UP PARAMETERS FOR DOWNLOAD CALL ----
   # Extent Modifiers (needed for download product to produce square cells which are needed for Kriging to work)
@@ -247,16 +244,13 @@ if(SingularDL){ # If user forced download to happen in one
                      while(!file.exists(file.path(Dir, FName)) & Down_try < TryDown){
                        if(Down_try>1){message('Retrying Download')}
                        API_request <- 1
-                       try(API_request <- wf_request(user = as.character(API_User),
-                                                     request = Request_ls,
+                       try(API_request <- wf_request(request = Request_ls,
                                                      transfer = TRUE,
                                                      path = Dir,
                                                      verbose = verbose,
                                                      time_out = TimeOut))
                        if(length(API_request) != 1){
-                         wf_delete(user = as.character(API_User),
-                                   url = API_request$request_id,
-                                   service = API_Service)
+                         wf_delete(url = API_request$request_id)
                        }
                        Down_try <- Down_try+1
                      }
