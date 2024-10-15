@@ -259,7 +259,7 @@ if(SingularDL){ # If user forced download to happen in one
 
   if(verbose){message(paste("Staging", n_calls, "download(s)."))}
   if(Cores > 1){ # Cores check: if parallel processing has been specified
-    ForeachObjects <- c("DataSet", "Type", "Variable", "Calls_ls", "Times", "Extent", "FileNames_vec", "Grid", "API_Key", "API_User", "Dir", "verbose", "TryDown", "TimeOut", "API_Service", "TResolution", "SingularDL")
+    ForeachObjects <- c("DataSet", "Type", "Variable", "Calls_ls", "Times", "Extent", "FileNames_vec", "Grid", "API_Key", "Dir", "verbose", "TryDown", "TimeOut", "TResolution", "SingularDL")
     pb <- txtProgressBar(max = n_calls, style = 3)
     progress <- function(n){setTxtProgressBar(pb, n)}
     opts <- list(progress = progress)
