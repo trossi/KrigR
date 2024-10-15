@@ -42,7 +42,6 @@ This function downloads and rescales the median statistic of the Global Multi-re
 \dontrun{
 # Downloading ERA5-Land air temperature reanalysis data in 12-hour intervals for 02/01/1995 - 04/01/1995 (DD/MM/YYYY). API User and Key in this example are non-functional. Substitute with your user number and key to run this example.
 Extent <- extent(c(11.8,15.1,50.1,51.7)) # roughly the extent of Saxony
-API_User <- "..."
 API_Key <- "..."
 State_Raw <- download_ERA(
 Variable = "2m_temperature",
@@ -52,7 +51,6 @@ DateStop = "1995-01-04",
 TResolution = "hour",
 TStep = 12,
 Extent = Extent,
-API_User = API_User,
 API_Key = API_Key
 )
 State_Raw # a raster brick with 6 layers at resolution of ~0.1°

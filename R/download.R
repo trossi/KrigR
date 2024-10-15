@@ -19,7 +19,6 @@
 #' @param Dir Directory specifying where to download data to.
 #' @param FileName A file name for the netcdf produced. Default is a combination parameters in the function call.
 #' @param API_Key Character; ECMWF cds API key.
-#' @param API_User Character; ECMWF cds user number.
 #' @param TryDown Optional, numeric. How often to attempt the download of each individual file that the function queries from the server. This is to circumvent having to restart the entire function when encountering connectivity issues.
 #' @param verbose Optional, logical. Whether to report progress of the function in the console or not.
 #' @param Cores Numeric. How many cores to use.^This can speed up downloads of long time-series. If you want output to your console during the process, use Cores = 1. Parallel processing is carried out when Cores is bigger than 1. Default is 1.
@@ -31,7 +30,6 @@
 #' \dontrun{
 #' # Downloading ERA5-Land air temperature reanalysis data in 12-hour intervals for 02/01/1995 - 04/01/1995 (DD/MM/YYYY). API User and Key in this example are non-functional. Substitute with your user number and key to run this example.
 #' Extent <- extent(11.8,15.1,50.1,51.7) # roughly the extent of Saxony
-#' API_User <- "..."
 #' API_Key <- "..."
 #' State_Raw <- download_ERA(
 #' Variable = "2m_temperature",
@@ -41,7 +39,6 @@
 #' TResolution = "hour",
 #' TStep = 12,
 #' Extent = Extent,
-#' API_User = API_User,
 #' API_Key = API_Key
 #' )
 #' State_Raw # a raster brick with 6 layers at resolution of ~0.1°
@@ -53,7 +50,7 @@ download_ERA <- function(Variable = NULL, PrecipFix = FALSE, Type = "reanalysis"
                           TResolution = "month", TStep = 1, FUN = 'mean',
                           Extent = extent(-180,180,-90,90), Buffer = 0.5, ID = "ID",
                           Dir = getwd(), FileName = NULL,
-                          API_User = NULL, API_Key = NULL, TryDown = 10, verbose = TRUE,
+                          API_Key = NULL, TryDown = 10, verbose = TRUE,
                           Cores = 1, TimeOut = 36000, SingularDL = FALSE,
                           ...) {
 
@@ -521,7 +518,6 @@ if(SingularDL){ # If user forced download to happen in one
 #' \dontrun{
 #' # Downloading ERA5-Land air temperature reanalysis data in 12-hour intervals for 02/01/1995 - 04/01/1995 (DD/MM/YYYY). API User and Key in this example are non-functional. Substitute with your user number and key to run this example.
 #' Extent <- extent(c(11.8,15.1,50.1,51.7)) # roughly the extent of Saxony
-#' API_User <- "..."
 #' API_Key <- "..."
 #' State_Raw <- download_ERA(
 #' Variable = "2m_temperature",
@@ -531,7 +527,6 @@ if(SingularDL){ # If user forced download to happen in one
 #' TResolution = "hour",
 #' TStep = 12,
 #' Extent = Extent,
-#' API_User = API_User,
 #' API_Key = API_Key
 #' )
 #' State_Raw # a raster brick with 6 layers at resolution of ~0.1°

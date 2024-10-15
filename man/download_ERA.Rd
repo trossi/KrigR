@@ -19,7 +19,6 @@ download_ERA(
   ID = "ID",
   Dir = getwd(),
   FileName = NULL,
-  API_User = NULL,
   API_Key = NULL,
   TryDown = 10,
   verbose = TRUE,
@@ -58,8 +57,6 @@ download_ERA(
 
 \item{FileName}{A file name for the netcdf produced. Default is a combination parameters in the function call.}
 
-\item{API_User}{Character; ECMWF cds user number.}
-
 \item{API_Key}{Character; ECMWF cds API key.}
 
 \item{TryDown}{Optional, numeric. How often to attempt the download of each individual file that the function queries from the server. This is to circumvent having to restart the entire function when encountering connectivity issues.}
@@ -87,7 +84,6 @@ Use optional arguments verbose, Cores, and SingularDL for updates on function pr
 \dontrun{
 # Downloading ERA5-Land air temperature reanalysis data in 12-hour intervals for 02/01/1995 - 04/01/1995 (DD/MM/YYYY). API User and Key in this example are non-functional. Substitute with your user number and key to run this example.
 Extent <- extent(11.8,15.1,50.1,51.7) # roughly the extent of Saxony
-API_User <- "..."
 API_Key <- "..."
 State_Raw <- download_ERA(
 Variable = "2m_temperature",
@@ -97,7 +93,6 @@ DateStop = "1995-01-04",
 TResolution = "hour",
 TStep = 12,
 Extent = Extent,
-API_User = API_User,
 API_Key = API_Key
 )
 State_Raw # a raster brick with 6 layers at resolution of ~0.1°

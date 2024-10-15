@@ -18,7 +18,6 @@ BioClim(
   Keep_Monthly = FALSE,
   Buffer = 0.5,
   ID = "ID",
-  API_User = API_User,
   API_Key = API_Key,
   Cores = 1,
   TryDown = 10,
@@ -53,8 +52,6 @@ BioClim(
 
 \item{ID}{Optional. Identifies which column in Extent to use for creation of individual buffers if Extent is a data.frame.}
 
-\item{API_User}{Character; ECMWF cds user number.}
-
 \item{API_Key}{Character; ECMWF cds API key.}
 
 \item{Cores}{Numeric. How many cores to use.^This can speed up downloads of long time-series. If you want output to your console during the process, use Cores = 1. Parallel processing is carried out when Cores is bigger than 1. Default is 1.}
@@ -84,7 +81,6 @@ verbose = TRUE,
 FileName = "NULL",
 Keep_Raw = FALSE,
 Keep_Monthly = FALSE,
-API_User = API_User,
 API_Key = API_Key)
 }
 

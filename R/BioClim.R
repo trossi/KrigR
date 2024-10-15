@@ -13,7 +13,6 @@
 #' @param Dir Directory specifying where to download data to.
 #' @param FileName A file name for the netcdf produced.
 #' @param API_Key Character; ECMWF cds API key.
-#' @param API_User Character; ECMWF cds user number.
 #' @param verbose Optional, logical. Whether to report progress of the function in the console or not.
 #' @param Keep_Raw Logical. Whether to keep monthly netcdf files of raw data aggregated to temporal resolution of `T_res`. Default FALSE.
 #' @param Keep_Monthly Logical. Whether to keep monthly netcdf files of raw data aggregated to temporal resolution of months. Default FALSE.
@@ -35,7 +34,6 @@
 #' FileName = "NULL",
 #' Keep_Raw = FALSE,
 #' Keep_Monthly = FALSE,
-#' API_User = API_User,
 #' API_Key = API_Key)
 #' }
 #'
@@ -53,7 +51,6 @@ BioClim <- function(Water_Var = "volumetric_soil_water_layer_1", # could also be
                     Keep_Monthly = FALSE,
                     Buffer = .5,
                     ID = "ID",
-                    API_User = API_User,
                     API_Key = API_Key,
                     Cores = 1,
                     TryDown = 10,
@@ -138,7 +135,6 @@ BioClim <- function(Water_Var = "volumetric_soil_water_layer_1", # could also be
         Extent = Extent,
         Dir = Dir,
         FileName = strsplit(TempName, '/')[[1]][length(strsplit(TempName, '/')[[1]])],
-        API_User = API_User,
         API_Key = API_Key,
         verbose = verbose,
         PrecipFix = PrecipFix,
@@ -205,7 +201,7 @@ BioClim <- function(Water_Var = "volumetric_soil_water_layer_1", # could also be
     }
 
     if(Cores > 1){ # Cores check: if parallel processing has been specified
-      ForeachObjects <- c("Var_down", "Var_Iter", "Dir", "Y_seq", "M_seq", "DataSet", "PrecipFix", "API_User", "API_Key", "T_res", "Extent", "Keep_Raw", "Fun_vec", "TryDown", "TimeOut", "SingularDL", "Var_down", "Fun_vec", "AggrFUN", "verbose", "Down_start")
+      ForeachObjects <- c("Var_down", "Var_Iter", "Dir", "Y_seq", "M_seq", "DataSet", "PrecipFix", "API_Key", "T_res", "Extent", "Keep_Raw", "Fun_vec", "TryDown", "TimeOut", "SingularDL", "Var_down", "Fun_vec", "AggrFUN", "verbose", "Down_start")
       pb <- txtProgressBar(max = n_down, style = 3)
       progress <- function(n){setTxtProgressBar(pb, n)}
       opts <- list(progress = progress)

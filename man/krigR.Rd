@@ -27,7 +27,6 @@ krigR(
   Buffer = 0.5,
   ID = "ID",
   API_Key,
-  API_User,
   Target_res,
   Source = "USGS",
   nmax = Inf,
@@ -83,8 +82,6 @@ krigR(
 
 \item{API_Key}{Optional. ECMWF cds API key. Passed on to download_ERA.}
 
-\item{API_User}{Optional. ECMWF cds user number. Passed on to download_ERA.}
-
 \item{Target_res}{Optional. The target resolution for the kriging step (i.e. which resolution to downscale to). An object as specified/produced by raster::res(). Passed on to download_DEM.}
 
 \item{Source}{Optional, character. Whether to attempt download from the official USGS data viewer (Source = "USGS") or a static copy of the data set on a  private drive (Source = "Drive"). Default is "USGS". Use this if the USGS viewer is unavailable. Passed on to download_DEM.}
@@ -106,7 +103,7 @@ A list object containing the downscaled data as well as the standard error for d
 This function statistically downscales input data using covariate data and the kriging methodology. The function can be run in two ways:
 \enumerate{
 \item \strong{By Itself}: Use the arguments Data, Covariates_coarse, Covariates_fine when you already have raster files for your data which is to be downscaled as well as covariate raster data.
-\item \strong{From Scratch}: Use the arguments Variable, Type, DataSet, DateStart, DateStop, TResolution, TStep, Extent, Dir, FileName, API_Key, API_User, and arget_res. By doing so, krigR will call the functions download_ERA() and download_DEM() for one coherent kriging workflow. Note that this process does not work when targetting UERRA data.
+\item \strong{From Scratch}: Use the arguments Variable, Type, DataSet, DateStart, DateStop, TResolution, TStep, Extent, Dir, FileName, API_Key, and Target_res. By doing so, krigR will call the functions download_ERA() and download_DEM() for one coherent kriging workflow. Note that this process does not work when targetting UERRA data.
 }
 Use optional arguments such as Dir, FileName, Keep_Temporary, SingularTry, KrigingEquation and Cores for ease of use, substitution of non-GMTED2010 covariates, and parallel processing.
 }
@@ -115,7 +112,6 @@ Use optional arguments such as Dir, FileName, Keep_Temporary, SingularTry, Krigi
 ## THREE-STEP PROCESS (By Itself)
 # Downloading ERA5-Land air temperature reanalysis data in 12-hour intervals for 02/01/1995 - 04/01/1995 (DD/MM/YYYY). API User and Key in this example are non-functional. Substitute with your user number and key to run this example.
 Extent <- extent(c(11.8,15.1,50.1,51.7)) # roughly the extent of Saxony
-API_User <- "..."
 API_Key <- "..."
 State_Raw <- download_ERA(
 Variable = "2m_temperature",
@@ -125,7 +121,6 @@ DateStop = "1995-01-04",
 TResolution = "hour",
 TStep = 12,
 Extent = Extent,
-API_User = API_User,
 API_Key = API_Key
 )
 State_Raw # a raster brick with 6 layers at resolution of ~0.1°
@@ -146,7 +141,6 @@ Covariates_fine = Covs_ls[[2]], # target covariate as a raster object
 ## PIPELINE (From Scratch)
 #' # Downloading ERA5-Land air temperature reanalysis data in 12-hour intervals for 02/01/1995 - 04/01/1995 (DD/MM/YYYY), downloading and preparing GMTED 2010 covariate data, and kriging. API User and Key in this example are non-functional. Substitute with your user number and key to run this example. This example produces the same output as the example above.
 Extent <- extent(c(11.8,15.1,50.1,51.7)) # roughly the extent of Saxony
-API_User <- "..."
 API_Key <- "..."
 Pipe_Krig <- krigR(
 Variable = "2m_temperature",
@@ -157,7 +151,6 @@ DateStop = "1995-01-04",
 TResolution = "hour",#
 TStep = 12,
 Extent = Extent,
-API_User = API_User,
 API_Key = API_Key,
 Target_res = .02,
 )
